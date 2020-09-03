@@ -20,6 +20,10 @@ variable "tag_name_unique" {
   default     = "JBI-FGT-3NIC-TGW"
 }
 
+variable "tag_rg" {
+  description = "Provide a unique tag value that will be used in the resource group tag for each modules resources"
+  default     = "JBI-FGT-3NIC-TGW"
+}
 
 #############################################################################################################
 #  AMI

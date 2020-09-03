@@ -7,6 +7,7 @@ resource "aws_vpc" "vpc_sec" {
   enable_dns_hostnames = true
   tags = {
     Name = "${var.tag_name_prefix}-vpc_sec"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -15,6 +16,7 @@ resource "aws_internet_gateway" "igw_sec" {
   vpc_id = aws_vpc.vpc_sec.id
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-igw_sec"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -25,6 +27,7 @@ resource "aws_subnet" "data_subnet1" {
   availability_zone = var.availability_zone1
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-data-subnet1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -34,6 +37,7 @@ resource "aws_subnet" "data_subnet2" {
   availability_zone = var.availability_zone2
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-data-subnet2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -43,6 +47,7 @@ resource "aws_subnet" "relay_subnet1" {
   availability_zone = var.availability_zone1
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-relay-subnet1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -52,6 +57,7 @@ resource "aws_subnet" "relay_subnet2" {
   availability_zone = var.availability_zone2
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-relay-subnet2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -61,6 +67,7 @@ resource "aws_subnet" "heartbeat_subnet1" {
   availability_zone = var.availability_zone1
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-heartbeat-subnet1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -70,6 +77,7 @@ resource "aws_subnet" "heartbeat_subnet2" {
   availability_zone = var.availability_zone2
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-heartbeat-subnet2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -79,6 +87,7 @@ resource "aws_subnet" "mgmt_subnet1" {
   availability_zone = var.availability_zone1
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-mgmt-subnet1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -88,6 +97,7 @@ resource "aws_subnet" "mgmt_subnet2" {
   availability_zone = var.availability_zone2
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-mgmt-subnet2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -108,6 +118,7 @@ resource "aws_route_table" "data_rt" {
   }
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-data-and-mgmt-rt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -119,6 +130,7 @@ resource "aws_route_table" "relay_rt" {
   }
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-relay-rt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -126,6 +138,7 @@ resource "aws_route_table" "heartbeat_rt" {
   vpc_id = aws_vpc.vpc_sec.id
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-heartbeat-rt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -170,6 +183,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-att-vpc-sec" {
   tags = {
     Name     = "tgw-att-vpc_sec"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -183,6 +197,7 @@ resource "aws_vpc" "spoke_vpc1" {
   tags = {
     Name     = "${var.tag_name_prefix}-vpc-spoke1"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -194,6 +209,7 @@ resource "aws_subnet" "spoke_vpc1-priv1" {
 
   tags = {
     Name = "${aws_vpc.spoke_vpc1.tags.Name}-priv1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -204,6 +220,7 @@ resource "aws_subnet" "spoke_vpc1-priv2" {
 
   tags = {
     Name = "${aws_vpc.spoke_vpc1.tags.Name}-priv2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -219,6 +236,7 @@ resource "aws_route_table" "spoke1-rt" {
   tags = {
     Name     = "spoke-vpc1-rt"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -244,6 +262,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-att-spoke-vpc1" {
   tags = {
     Name     = "tgw-att-spoke-vpc1"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -257,6 +276,7 @@ resource "aws_vpc" "spoke_vpc2" {
   tags = {
     Name     = "${var.tag_name_prefix}-vpc-spoke2"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -268,6 +288,7 @@ resource "aws_subnet" "spoke_vpc2-priv1" {
 
   tags = {
     Name = "${aws_vpc.spoke_vpc2.tags.Name}-priv1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -278,6 +299,7 @@ resource "aws_subnet" "spoke_vpc2-priv2" {
 
   tags = {
     Name = "${aws_vpc.spoke_vpc2.tags.Name}-priv2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -293,6 +315,7 @@ resource "aws_route_table" "spoke2-rt" {
   tags = {
     Name     = "spoke-vpc2-rt"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -318,6 +341,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-att-spoke-vpc2" {
   tags = {
     Name     = "tgw-att-spoke-vpc2"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -331,6 +355,7 @@ resource "aws_vpc" "spoke_mgmt" {
   tags = {
     Name     = "${var.tag_name_prefix}-vpc-mgmt"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -339,6 +364,7 @@ resource "aws_internet_gateway" "igw_mgmt" {
   vpc_id = aws_vpc.spoke_mgmt.id
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-igw_mgmt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -350,6 +376,7 @@ resource "aws_subnet" "spoke_mgmt-priv1" {
 
   tags = {
     Name = "${aws_vpc.spoke_mgmt.tags.Name}-priv1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -360,6 +387,7 @@ resource "aws_subnet" "spoke_mgmt-priv2" {
 
   tags = {
     Name = "${aws_vpc.spoke_mgmt.tags.Name}-priv2"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -383,6 +411,7 @@ resource "aws_route_table" "mgmt-rt" {
   tags = {
     Name     = "mgmt-rt"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }
@@ -408,6 +437,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-att-mgmt" {
   tags = {
     Name     = "tgw-att-spoke-mgmt"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
   depends_on = [aws_ec2_transit_gateway.TGW-XAZ]
 }

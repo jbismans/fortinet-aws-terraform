@@ -30,6 +30,7 @@ resource "aws_instance" "instance-spoke1" {
     Name     = "instance-${var.tag_name_unique}-spoke1"
     scenario = var.scenario
     az       = var.availability_zone1
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -45,6 +46,7 @@ resource "aws_instance" "instance-spoke2" {
     Name     = "instance-${var.tag_name_unique}-spoke2"
     scenario = var.scenario
     az       = var.availability_zone2
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -61,6 +63,7 @@ resource "aws_instance" "instance-mgmt" {
     Name     = "instance-${var.tag_name_unique}-mgmt"
     scenario = var.scenario
     az       = var.availability_zone1
+    RG = "${var.tag_rg}"
   }
 }
 

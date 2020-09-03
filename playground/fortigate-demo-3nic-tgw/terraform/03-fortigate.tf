@@ -55,6 +55,7 @@ resource "aws_security_group" "NSG-spoke1-ssh-icmp-https" {
   tags = {
     Name     = "NSG-spoke1-ssh-icmp-https"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -94,6 +95,7 @@ resource "aws_security_group" "NSG-spoke2-ssh-icmp-https" {
   tags = {
     Name     = "NSG-spoke2-ssh-icmp-https"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -133,6 +135,7 @@ resource "aws_security_group" "NSG-mgmt-ssh-icmp-https" {
   tags = {
     Name     = "NSG-mgmt-ssh-icmp-https"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -159,6 +162,7 @@ resource "aws_security_group" "NSG-vpc-sec-ssh-icmp-https" {
   tags = {
     Name     = "NSG-vpc-sec-ssh-icmp-https"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -233,6 +237,7 @@ resource "aws_network_interface" "eni-fgt1-data" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt1-enidata"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -242,6 +247,7 @@ resource "aws_network_interface" "eni-fgt2-data" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt2-enidata"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -252,6 +258,7 @@ resource "aws_network_interface" "eni-fgt1-hb" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt1-enihb"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -262,6 +269,7 @@ resource "aws_network_interface" "eni-fgt2-hb" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt2-enihb"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -271,6 +279,7 @@ resource "aws_network_interface" "eni-fgt1-mgmt" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt1-enimgmt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -280,6 +289,7 @@ resource "aws_network_interface" "eni-fgt2-mgmt" {
   source_dest_check = false
   tags = {
     Name = "${var.tag_name_prefix}-fgt2-enimgmt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -290,6 +300,7 @@ resource "aws_eip" "eip-mgmt1" {
   network_interface = aws_network_interface.eni-fgt1-mgmt.id
   tags = {
     Name = "${var.tag_name_prefix}-fgt1-eip-mgmt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -299,6 +310,7 @@ resource "aws_eip" "eip-mgmt2" {
   network_interface = aws_network_interface.eni-fgt2-mgmt.id
   tags = {
     Name = "${var.tag_name_prefix}-fgt2-eip-mgmt"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -308,6 +320,7 @@ resource "aws_eip" "eip-shared" {
   network_interface = aws_network_interface.eni-fgt1-data.id
   tags = {
     Name = "${var.tag_name_prefix}-eip-cluster"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -333,6 +346,7 @@ resource "aws_instance" "fgt1" {
   }
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-fgt1"
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -357,6 +371,7 @@ resource "aws_instance" "fgt2" {
   }
   tags = {
     Name = "${var.tag_name_prefix}-${var.tag_name_unique}-fgt2"
+    RG = "${var.tag_rg}"
   }
 }
 

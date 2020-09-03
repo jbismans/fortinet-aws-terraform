@@ -8,6 +8,7 @@ resource "aws_ec2_transit_gateway" "TGW-XAZ" {
   tags = {
     Name     = var.tag_name_prefix
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -18,6 +19,7 @@ resource "aws_ec2_transit_gateway_route_table" "TGW-spoke-rt" {
   tags = {
     Name     = "TGW-SPOKES-RT"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -27,6 +29,7 @@ resource "aws_ec2_transit_gateway_route_table" "TGW-VPC-SEC-rt" {
   tags = {
     Name     = "TGW-VPC-SEC-RT"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
@@ -36,6 +39,7 @@ resource "aws_ec2_transit_gateway_route_table" "TGW-VPC-MGMT-rt" {
   tags = {
     Name     = "TGW-VPC-MGMT-RT"
     scenario = var.scenario
+    RG = "${var.tag_rg}"
   }
 }
 
